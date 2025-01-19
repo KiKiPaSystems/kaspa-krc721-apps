@@ -1,16 +1,26 @@
 import { RpcClient, Encoding, Resolver, ScriptBuilder, Opcodes, PrivateKey, addressFromScriptPublicKey, createTransactions, kaspaToSompi, UtxoProcessor, UtxoContext } from "./wasm/kaspa";
 import minimist from 'minimist';
 
-// Parse command-line arguments
 const args = minimist(process.argv.slice(2));
 const privateKeyArg = args.privKey;
 const network = args.network || 'testnet-10';
-const ticker = args.ticker || 'TCHIMP';
-const priorityFeeValue = args.priorityFee || '1.5';
+const ticker = args.ticker || 'CCHIMP';
+const priorityFeeValue = args.priorityFee || '2';
 const timeout = args.timeout || 120000; // 2 minutes timeout
 const logLevel = args.logLevel || 'INFO';
-const max = args.max || '28700000000000000000';
-const lim = args.max || '2870000000000';
+const max = args.max || '1000';
+const gasFee = args.gasFee || 1000;
+const royaltyFee = args.royaltyFee || '100000000';
+const name = args.name || 'Coinchimp Premium';
+const description = args.description || 'NFT Coinchimp Test';
+const image = args.image || 'ipfs://bafkreie3v7wi33xc52ioqjylydn4fvahsv4ndgj2474iwcnc34tli3ua6i';
+
+const attributes = args.attributes || [
+  {
+    traitType: 'access_level',
+    value: 'premium',
+  }
+]; 
 
 let addedEventTrxId : any;
 let SubmittedtrxId: any;
@@ -99,10 +109,26 @@ RPC.addEventListener('utxos-changed', async (event: any) => {
 });
 
 
+const data = {
+  p: 'krc-721',
+  op: 'deploy',
+  tick: ticker,
+  max: max,
+  //buri: image,
+  metadata: 
+    {
+      name: name,
+      description: description,
+      image: image,      
+      attributes: attributes,
+    },
+  royaltyFee: royaltyFee,
+  royaltyOwner: "kaspatest:qzxkf2y9r4dg97uwf5md92ek8laa5853an8f4h2tuvkwe4erm5tgcc4hxz5jn",
+};
 
 
-const gasFee = 1000
-const data = {"p":"krc-721","op":"deploy","tick": ticker ,"max": max ,"lim": lim}
+
+
 log(`Main: Data to use for ScriptBuilder: ${JSON.stringify(data)}`, 'DEBUG');
 
 const script = new ScriptBuilder()
@@ -110,7 +136,7 @@ const script = new ScriptBuilder()
   .addOp(Opcodes.OpCheckSig)
   .addOp(Opcodes.OpFalse)
   .addOp(Opcodes.OpIf)
-  .addData(Buffer.from("kasplex"))
+  .addData(Buffer.from("kspr"))
   .addI64(0n)
   .addData(Buffer.from(JSON.stringify(data, null, 0)))
   .addOp(Opcodes.OpEndIf);
@@ -130,7 +156,7 @@ try {
     entries,
     outputs: [{
       address: P2SHAddress.toString(),
-      amount: kaspaToSompi("0.3")!
+      amount: kaspaToSompi("4")!
     }],
     changeAddress: address.toString(),
     priorityFee: kaspaToSompi(priorityFeeValue.toString())!,
@@ -180,6 +206,7 @@ if (eventReceived) {
     outputs: [],
     changeAddress: address.toString(),
     priorityFee: kaspaToSompi(gasFee.toString())!,
+    //priorityFee: kaspaToSompi('100')!,
     networkId: network
   });
   let revealHash: any;
