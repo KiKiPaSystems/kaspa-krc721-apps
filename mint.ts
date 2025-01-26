@@ -5,7 +5,7 @@ import minimist from 'minimist';
 const args = minimist(process.argv.slice(2));
 const privateKeyArg = args.privKey;
 const network = args.network || 'testnet-10';
-const ticker = args.ticker || 'CCHIMP';
+const ticker = args.ticker;
 const priorityFeeValue = args.priorityFee || '1';
 const timeout = args.timeout || 300000; // 5 minutes timeout
 const logLevel = args.logLevel || 'INFO';
@@ -18,6 +18,11 @@ let SubmittedtrxId: any;
 
 if (!privateKeyArg) {
   console.error("Please provide a private key using the --privKey flag.");
+  process.exit(1);
+}
+
+if (!ticker) {
+  console.error("Please provide a TICKER using the --ticker flag.");
   process.exit(1);
 }
 

@@ -1,19 +1,21 @@
+import { ExitStatus } from "typescript";
 import { RpcClient, Encoding, Resolver, ScriptBuilder, Opcodes, PrivateKey, addressFromScriptPublicKey, createTransactions, kaspaToSompi, UtxoProcessor, UtxoContext } from "./wasm/kaspa";
 import minimist from 'minimist';
 
 const args = minimist(process.argv.slice(2));
 const privateKeyArg = args.privKey;
 const network = args.network || 'testnet-10';
-const ticker = args.ticker || 'CCHIMP';
+const ticker = args.ticker;
 const priorityFeeValue = args.priorityFee || '2';
 const timeout = args.timeout || 120000; // 2 minutes timeout
 const logLevel = args.logLevel || 'INFO';
 const max = args.max || '1000';
 const gasFee = args.gasFee || 1000;
-const royaltyFee = args.royaltyFee || '100000000';
+const royaltyFee = args.royaltyFee || '100';
+const royaltyOwner = args.royaltyOwner || 'kaspatest:qzxkf2y9r4dg97uwf5md92ek8laa5853an8f4h2tuvkwe4erm5tgcc4hxz5jn';
 const name = args.name || 'Coinchimp Premium';
 const description = args.description || 'NFT Coinchimp Test';
-const image = args.image || 'ipfs://bafkreie3v7wi33xc52ioqjylydn4fvahsv4ndgj2474iwcnc34tli3ua6i';
+const image = args.image ;
 
 const attributes = args.attributes || [
   {
@@ -28,6 +30,16 @@ let SubmittedtrxId: any;
 
 if (!privateKeyArg) {
   console.error("Please provide a private key using the --privKey flag.");
+  process.exit(1);
+}
+
+if (!image) {
+  console.error("Please provide a IPFS URL for image using the --image flag.");
+  process.exit(1);
+}
+
+if (!ticker) {
+  console.error("Please provide a TICKER using the --ticker flag.");
   process.exit(1);
 }
 
@@ -109,27 +121,30 @@ RPC.addEventListener('utxos-changed', async (event: any) => {
 });
 
 
-const data = {
+const data: any = {
   p: 'krc-721',
   op: 'deploy',
   tick: ticker,
   max: max,
-  //buri: image,
-  metadata: 
-    {
-      name: name,
-      description: description,
-      image: image,      
-      attributes: attributes,
-    },
-  royaltyFee: royaltyFee,
-  royaltyOwner: "kaspatest:qzxkf2y9r4dg97uwf5md92ek8laa5853an8f4h2tuvkwe4erm5tgcc4hxz5jn",
+  metadata: {
+    name: name,
+    description: description,
+    image: image,
+    attributes: attributes,
+  },
 };
+// Conditionally add royaltyFee and royaltyOwner only if their values are not default
+if (royaltyFee !== '0' && royaltyOwner !== '') {
+  data.royaltyFee = kaspaToSompi(royaltyFee)?.toString();
+  data.royaltyOwner = royaltyOwner;
+}
 
 
 
 
 log(`Main: Data to use for ScriptBuilder: ${JSON.stringify(data)}`, 'DEBUG');
+
+
 
 const script = new ScriptBuilder()
   .addData(publicKey.toXOnlyPublicKey().toString())
@@ -156,7 +171,7 @@ try {
     entries,
     outputs: [{
       address: P2SHAddress.toString(),
-      amount: kaspaToSompi("4")!
+      amount: kaspaToSompi("100")!
     }],
     changeAddress: address.toString(),
     priorityFee: kaspaToSompi(priorityFeeValue.toString())!,
