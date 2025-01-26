@@ -1,5 +1,5 @@
 {
-  "name": "krc20-mint",
+  "name": "krc721-apps",
   "version": "0.0.1",
   "module": "mint.ts",
   "type": "module",
