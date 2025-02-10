@@ -9,20 +9,13 @@ const ticker = args.ticker;
 const priorityFeeValue = args.priorityFee || '2';
 const timeout = args.timeout || 120000; // 2 minutes timeout
 const logLevel = args.logLevel || 'INFO';
-const max = args.max || '100000';
+const max = args.max || '1000';
 const gasFee = args.gasFee || 1000;
-const royaltyFee = args.royaltyFee || '100';
+const royaltyFee = args.royaltyFee || '500';
 const royaltyOwner = args.royaltyOwner || 'kaspatest:qzxkf2y9r4dg97uwf5md92ek8laa5853an8f4h2tuvkwe4erm5tgcc4hxz5jn';
-const name = args.name || 'Coinchimp Premium';
-const description = args.description || 'NFT Coinchimp Test';
-const image = args.image ;
-
-const attributes = args.attributes || [
-  {
-    traitType: 'access_level',
-    value: 'premium',
-  }
-]; 
+const name = args.name || 'Coinchimp';
+const description = args.description || 'A NFT Coinchimp Collection';
+const buri = args.buri ;
 
 let addedEventTrxId : any;
 let SubmittedtrxId: any;
@@ -33,7 +26,7 @@ if (!privateKeyArg) {
   process.exit(1);
 }
 
-if (!image) {
+if (!buri) {
   console.error("Please provide a IPFS URL for image using the --image flag.");
   process.exit(1);
 }
@@ -125,13 +118,10 @@ const data: any = {
   p: 'krc-721',
   op: 'deploy',
   tick: ticker,
-  max: max,
-  metadata: {
-    name: name,
-    description: description,
-    image: image,
-    attributes: attributes,
-  },
+  max: max.toString(),
+  name: name,
+  description: description,
+  buri: buri,
 };
 // Conditionally add royaltyFee and royaltyOwner only if their values are not default
 if (royaltyFee !== '0' && royaltyOwner !== '') {
