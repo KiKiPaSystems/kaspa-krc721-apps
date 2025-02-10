@@ -1,0 +1,19 @@
+{
+    "layerOrder": ["background", "head", "handoff", "body", "hat", "eyes"],
+    "avoidCombinations": [
+        { "background": "turquoise.PNG", "handoff": "green-cup.PNG" },
+        { "background": "turquoise.PNG", "body": "green-tshirt.PNG" },
+        { "background": "turquoise.PNG", "body": "green-jacket.PNG" },
+        { "background": "turquoise.PNG", "eyes": "green-sunglasses.PNG" },
+        { "background": "pink.PNG", "handoff": "pink-cup.PNG" },
+        { "background": "pink.PNG", "body": "pink-tshirt.PNG" },
+        { "background": "pink.PNG", "body": "pink-jacket.PNG" },
+        { "background": "pink.PNG", "eyes": "pink-sunglasses.PNG" }
+    ],
+    "rarity": [
+        { "hat": "green-cap.PNG", "rarityValue": 1 },
+        { "eyes": "white-sunglasses.PNG", "rarityValue": 2 }
+    ],
+    "NoneOptions": ["hat"],
+    "legendaryChance": 2
+}

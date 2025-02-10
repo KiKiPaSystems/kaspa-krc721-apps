@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KRC721 NFT Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="header">
+        <p>Prototype developed by <span class="highlight">coinchimp</span></p>
+        <div class="social-links">
+            <a href="https://x.com/coinchimpx" target="_blank">
+                <img src="logos/x.png" alt="Twitter">
+            </a>
+            <a href="https://github.com/coinchimp/kaspa-krc721-apps" target="_blank">
+                <img src="logos/github.png" alt="GitHub">
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>KRC721 NFT Generator</h1>
+
+        <!-- ✅ Input Fields -->
+        <div class="form-group">
+            <label for="cidInput">Enter CID:</label>
+            <input type="text" id="cidInput" placeholder="bafybeidcq47l..." class="input-field">
+            <span id="cidError" class="error-msg" style="display: none;">Invalid CID format</span>
+        </div>
+
+        <div class="form-group">
+            <label for="collectionNameInput">Collection Name:</label>
+            <input type="text" id="collectionNameInput" placeholder="coinchimp" class="input-field">
+            <span id="collectionNameError" class="error-msg" style="display: none;">
+                Invalid collection name (min 4 chars, only [a-z][0-9])
+            </span>
+        </div>
+
+        <div class="form-group">
+            <label for="descriptionInput">Description:</label>
+            <input type="text" id="descriptionInput" placeholder="A collection of NFTs" class="input-field">
+        </div>
+
+        <!-- ✅ Upload ZIP File for Traits -->
+        <div class="upload-section">
+            <label>Upload Trait Layers:</label>
+            <div id="dropzone">Click or Drop ZIP File Here</div>
+            <input type="file" id="fileInput" style="display: none;">
+
+            <h3 id="traitsTitle" style="display: none;">Uploaded Trait Layers:</h3>
+            <div id="traitsList" class="traits-container"></div>
+        </div>
+
+        <!-- ✅ Text Area for Rules JSON -->
+        <div class="form-group rules-group">
+            <label for="rulesTextarea">Rules JSON:</label>
+            <textarea id="rulesTextarea" placeholder="Paste rules.json content here..." rows="8" class="input-field"></textarea>
+        </div>
+
+        <!-- ✅ Buttons -->
+        <div class="button-group">
+            <button id="generateBtn" style="display: none;">Generate NFTs</button>
+            <button id="viewCollectionBtn" style="display: none;">View Collection</button>
+            <button id="downloadImagesBtn" style="display: none;">Download Image Collection</button>
+            <button id="downloadMetadataBtn" style="display: none;">Download Metadata</button>
+        </div>
+
+        <!-- ✅ Progress Bar -->
+        <div id="progress-container">
+            <div id="progress-bar">
+                <span id="progress-text">0/0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ Include Scripts -->
+    <script type="module" src="scripts/main.js"></script>
+</body>
+</html>

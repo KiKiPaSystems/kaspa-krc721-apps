@@ -1,0 +1,184 @@
+/* ✅ General Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* ✅ Header Section */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    max-width: 600px;
+    margin-bottom: 20px;
+    color: #231F20;
+    font-size: 14px;
+}
+
+.highlight {
+    font-weight: bold;
+    color: #70C7BA;
+}
+
+/* ✅ Social Links */
+.social-links {
+    display: flex;
+    gap: 10px;
+}
+
+.social-links img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.social-links img:hover {
+    opacity: 0.7;
+}
+
+/* ✅ Container */
+.container {
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+/* ✅ Title */
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #231F20;
+    margin-bottom: 20px;
+}
+
+/* ✅ Form Groups */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #231F20;
+}
+
+.input-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #B6B6B6;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* ✅ Hide validation messages initially */
+.error-msg {
+    color: red;
+    font-size: 12px;
+    display: none;
+}
+
+/* ✅ Upload Section */
+.upload-section {
+    margin-top: 20px;
+}
+
+#dropzone {
+    background: #fafafa;
+    padding: 15px;
+    border: 2px dashed #70C7BA;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    text-align: center;
+    font-size: 14px;
+    color: #231F20;
+}
+
+#dropzone:hover {
+    background: #e6e6e6;
+}
+
+/* ✅ Traits List */
+.traits-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.trait-box {
+    background: #70C7BA;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* ✅ Rules Section */
+.rules-group {
+    margin-top: 25px;
+}
+
+/* ✅ Buttons */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+button {
+    background: #49EACB;
+    color: #231F20;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background: #70C7BA;
+    transform: scale(1.05);
+}
+
+/* ✅ Progress Bar */
+#progress-container {
+    width: 100%;
+    background: #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+#progress-bar {
+    width: 0%;
+    height: 20px;
+    background: #28a745;
+    transition: width 0.4s;
+}
+
+#progress-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+}
