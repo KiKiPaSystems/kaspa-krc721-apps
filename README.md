@@ -1,4 +1,4 @@
-### README: Deploy and Mint KRC-721 Tokens on Kaspa
+### README: Deploy and Mint KRC-721 Tokens on Kaspa 
 
 #### Overview
 
